@@ -52,7 +52,7 @@ For this, collaborative coding platforms such as GitHub or GitLab are key. This 
 As a version control system, what Git does is simply store different version of your project for you. Git itself is a software that provides you with a server database in which the different versions of your project will be stored. All of these versions can be looked at and retrieved at any time, using the appropriate commands. So, what it is important for working with Git is to know how to communicate with it, i.e., knowing the language of Git (which we will learn during this course!). 
 
 <figure markdown="span">
-  ![git database](../../_media/git_database.png){ width="600" }
+  ![git database](_media/git_database.png){ width="600" }
   <figcaption>The basic principle of Git. Local folder vs. git version database.</figcaption>
 </figure>
 
@@ -76,7 +76,7 @@ Well, every time you want to save the current state of your project (=*one versi
 When you ask Git to version control your files (=*initialize Git*), it will create a hidden folder inside your local folder. This hidden folder (called *.git*) is your version database. 
 
 <figure markdown="span">
-  ![git database](../../_media/hidden_git_repo.png){ width="400" }
+  ![git database](_media/hidden_git_repo.png){ width="400" }
   <figcaption>After initializing Git in your project folder, a hidden .git folder is placed inside your project folder. Inside this hidden .git folder the different versions of the project are stored. </figcaption>
 </figure>
 
