@@ -1,0 +1,868 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../introduction/">
+      
+      
+        <link rel="next" href="../branching_merging/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.19">
+    
+    
+      
+        <title>Basic Git Workflow - Git & GitLab Tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i%7CRoboto+mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Montserrat";--md-code-font:"Roboto mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#basic-local-git-workflow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Git &amp; GitLab Tutorial" class="md-header__button md-logo" aria-label="Git & GitLab Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Git & GitLab Tutorial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Basic Git Workflow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/julia-pfarr/git-gitlab_tutorial" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Git &amp; GitLab Tutorial" class="md-nav__button md-logo" aria-label="Git & GitLab Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Git & GitLab Tutorial
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/julia-pfarr/git-gitlab_tutorial" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation and Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Basic Git Workflow
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Basic Git Workflow
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#first-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      First steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making changes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#looking-at-differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Looking at differences
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-commit-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      The commit history
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The commit history">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-and-binary-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git and binary files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../branching_merging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Branching and Merging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gitlab/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basic Git-GitLab Workflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribute/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merge requests and more
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="basic-local-git-workflow">Basic local Git Workflow</h1>
+<div class="admonition note">
+<p class="admonition-title">Objectives📍</p>
+<ul>
+<li>init</li>
+<li>add</li>
+<li>commit</li>
+<li>status</li>
+<li>diff</li>
+<li>log</li>
+</ul>
+</div>
+<p><strong>Note:</strong> For this tutorial you will need a project folder to work on. </p>
+<p>Now that we have a basic understanding of what Git is and what it does, we want to try it. In this section we want to make changes to our project and therefore create different versions of our project. To do so, we first need to learn the basic vocabulary of Git. </p>
+<div class="admonition tip">
+<p class="admonition-title">Git vocabulary</p>
+<ul>
+<li><code>git init</code>: to give git initial control over your files</li>
+<li><code>git add</code>: adds a change from the working directory into the staging area</li>
+<li><code>git commit</code>: saves a snapshot of the current version of your project in the repository</li>
+<li><code>git status</code>: check the status of the files</li>
+<li><code>git diff</code>: let’s you inspect differences between versions (in a certain way)</li>
+<li><code>git log</code>: to view the commit history</li>
+</ul>
+</div>
+<h2 id="first-steps">First steps</h2>
+<p>The very first step at the beginning of version controlling your files is to tell git to draw attention to this folder. With <code>git init</code> we give git the power to track our files. </p>
+<p>Navigate to your project folder in your command line/ terminal. You can also use <a href="https://code.visualstudio.com/download">VSCode</a> as an IDE to work on your project. There you have an integrated terminal and are always in the folder which you currently have open in VSCode.</p>
+<p>When you are in the right directory, type:</p>
+<div class="highlight"><pre><span></span><code>git init 
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">git init</p>
+</div>
+<p>However, our files are not tracked yet, for this we have to add and commit the files with a first commit. We can check this by typing </p>
+<div class="highlight"><pre><span></span><code>git status
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">git status</p>
+<p>Through the power we gave git by doing a <code>git init</code>, git always knows exactly what's going on in our folder. <code>git status</code> will tell us what that is. When using git only locally, we can have three different outputs of <code>git status</code>:</p>
+<ul>
+<li><em>untracked files</em>: git knows there are files in our folder but we didn't tell git to actually track them. Either we created a new file and haven' added it yet or we simply don't want this file to be tracked. </li>
+<li><em>changes not staged for commit</em>: at some point we added this file and git tracks its status. Now we made changes to this file but we haven't added them, yet.</li>
+<li><em>changes to be committed</em>: these changes we already added to the staging area and will be included in our next commit. </li>
+</ul>
+</div>
+<p>Let's move on. Because we want EVERYTHING in our folder be tracked by git, we simply add and commit everything at once. First we type</p>
+<div class="highlight"><pre><span></span><code>git add .
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">git add</p>
+<p>Like we learned in the previous section, <code>git add</code> allows us to add files individually to the staging area. With the <code>git add .</code> we added ALL files to the staging area (that's what the <code>.</code> does after add). If you want to stage your files individually, you simply exchange the <code>.</code> with the name of the file you want to stage.</p>
+</div>
+<p>Now that we have all our files staged and waiting for the train to version database, we can commit them. We type</p>
+<div class="highlight"><pre><span></span><code>git commit
+</code></pre></div>
+<p>and our text editor opens automatically. This is because with every commit we need to write a commit message to know later what this commit was about. </p>
+<details class="tip">
+<summary>The nano and vim text editors</summary>
+<p>In case you configured nano or vim as your default text editor when using git (vim is the default editor on MaRC3a/JupyterHub): Those text editors are command-line editors which means they open directly in the terminal (no new window opens). With everything, you just need to know how to operate it:</p>
+<p><strong>nano</strong>:<br>
+- when the editor opens for the commit message, you need to first press <code>enter</code> one time to make new line at the top. <br>
+- when you've done writing your commit message, you need to save and close it: <code>CTRL X</code> closes it but it asks you first if you want to save it by typing a capital <code>Y</code>, then <code>Enter</code>.<br></p>
+<p><strong>vim</strong>:<br>
+- when the editor opens you first need to type <code>i</code> to change from command mode to insert mode<br>
+- make a new line at the top by pressing <code>Enter</code><br>
+- write your commit message and then press <code>Esc</code> and then <code>:wq</code> to save and exit<br></p>
+</details>
+<div class="admonition tip">
+<p class="admonition-title">Commit message structure</p>
+<p>When the text editor opens and asks us for a commit message we have to insert a title and the actual commit message. The first line we write will be the title. The title should be short and expressive. Then we make an empty line and after this we write a longer commit message. This message can be as long as you wish or need it to be.</p>
+</div>
+<p>Because this is our first commit we can simply write a commit message like </p>
+<blockquote>
+<p>"initial commit"</p>
+<p>"added all my files of the choice_rtt project to be tracked by git"</p>
+</blockquote>
+<p>Later, we need to be more specific when describing what we changed.</p>
+<p><strong>NOTE FOR MAC USERS:</strong> Please make sure your text editor really saves files in <code>.txt</code> and not <code>.rtf</code>. </p>
+<div class="admonition tip">
+<p class="admonition-title">Please make sure that your text editor is really closed!!!</p>
+</div>
+<h2 id="making-changes">Making changes</h2>
+<p>Now we want to explore a bit the different functions of git. For this we need to make our first change. Open one of your files and make a change. Afterwards, type <code>git status</code> again. What does it say now?</p>
+<p>So, we need to stage our change before we can commit it. We type </p>
+<div class="highlight"><pre><span></span><code>git add *path-to-your-file*
+</code></pre></div>
+<p>because we only want this file to be committed. Why? Because a commit message is bound to the changes we commit and we want to write a useful commit message that says what we changed. We will see later why this is important. Now, commit your change and give it a useful commit message. </p>
+<div class="highlight"><pre><span></span><code>git commit 
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">git commit</p>
+<p>When you do a git commit, you don't need to specify which file you are committing as every file in the staging area will be committed. If you don't want certain files to be committed together, you need to specify this by your add-commit workflow. Every time you do a <code>git add</code>, a file comes into the staging area and is included in the next commit. </p>
+<p><strong>Example</strong>:</p>
+<p>You made changes on file1, file2, and file3. An add-commit workflow like this<br>
+<code>git add file1</code><br>
+<code>git add file2</code><br>
+<code>git commit</code><br>
+<code>git add file3</code><br>
+<code>git commit</code><br>
+leads to file1 and file2 committed together, file3 separately.</p>
+<p>Whereas an add-commit workflow like this<br>
+<code>git add file1</code><br>
+<code>git add file2</code><br>
+<code>git add file3</code><br>
+<code>git commit</code><br>
+leads to all three files being committed together.</p>
+</div>
+<p>Again, our text editor opens and asks us for our commit message, so we should do that. </p>
+<p>When we do a <code>git status</code> again now, it should tells us </p>
+<blockquote>
+<p>"nothing to commit, working tree clean"</p>
+</blockquote>
+<p>which basically means that the version in our working directory is the exact same version as the <em>last</em> committed version (remember the structure of the git repository from the previous section). </p>
+<div class="admonition question">
+<p class="admonition-title">Task 1</p>
+<p>1) Make a change to one of your files. Add and commit it like we just did.</p>
+<p>2) Make another change. Don't add it. </p>
+<p>3) Create a new file and write something in it.</p>
+<p>4) Do a <code>git status</code>. What does it say? Do what it says needs to be done to get a clean working tree. Try the tip "git commit -m" below for committing. </p>
+</div>
+<details class="tip">
+<summary>git commit -m</summary>
+<p>If you type <code>git commit -m</code> instead of <code>git commit</code>, git expects you to write a very short commit message after the <code>m</code>, like <code>git commit -m "my commit message"</code>. This short commit message basically replaces the title+message form and the commit message should be short and precise. You do not have more information to this commit than the short commit message. You should always think about when to make a short commit message and when you might need a longer explanation on what you've changed.  </p>
+</details>
+<h2 id="looking-at-differences">Looking at differences</h2>
+<p>Another great thing of git, besides storing different versions for us, is its ability to show us exactly what we changed. For this we have an extra command called <code>git diff</code>. Let`s try this.</p>
+<p>Make another change to your file, close it, but DON'T commit it for now. We can now look at the difference between the version in our working directory and the one in our version database (= last committed version). Let's type a <code>git diff</code>. The output looks weird but is actually really helpful, here's an example of a git diff with an explanation below<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>:</p>
+<div class="highlight"><pre><span></span><code>diff --git a/diff_test.txt b/diff_test.txt
+index 6b0c6cf..b37e70a 100644
+--- a/diff_test.txt
++++ b/diff_test.txt
+@@ -1 +1 @@
+-this is a git diff test example
++this is a diff example
+</code></pre></div>
+<ul>
+<li>the first line just tells us which file is being compared. If you included multiple files in your commit, the differences for each file will be shown individually. So after all the differences for one file, the differences shown for another file start with this line <code>diff --git name-of-the-file</code> again.</li>
+<li><code>index</code> shows us the hashes of the files being compared. You're right, we didn't commit our current version so it shouldn't have commit hash, yet. Well, git assigns a hash to it anyway but it's not really a commit hash but you can think of it more like a "working directory hash". </li>
+<li>the third number after <code>index</code> tells us which kind of file it is. <code>100644</code> for example stands for an ordinary text file. </li>
+<li><code>--- a/filename</code> and <code>+++ b/filename</code>: changes from <code>a/diff_test.txt</code> are marked with a <code>---</code> and the changes from <code>b/diff_test.txt</code> are marked with the <code>+++</code> symbol</li>
+<li>The remaining diff output is a list of diff 'chunks'. A diff only displays the sections of the file that have changes. In our current example, we only have one chunk as we are working with a simple scenario. Chunks have their own granular output semantics</li>
+<li>The first line is the chunk header. Each chunk is prepended by a header enclosed within <code>@@</code> symbols. The content of the header is a summary of changes made to the file. In our simplified example, we have -1 +1 meaning line one had changes </li>
+<li>In a more realistic diff, you would see a header like <code>@@ -34,6 +34,8 @@</code>: In this header example, 6 lines have been extracted starting from line number 34. Additionally, 8 lines have been added starting at line number 34</li>
+<li>The remaining content of the diff chunk displays the recent changes. Each changed line is prepended with a + or - symbol indicating which version of the diff input the changes come from</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">git diff</p>
+<p>By simply typing <code>git diff</code> you will be shown the difference between the current version in the working directory and the last committed version. However, we can also look at differences between two committed versions or the difference to a staged version. For this we need the assigned commit hashes, which we can find out through a <code>git log</code>.</p>
+</div>
+<h2 id="the-commit-history">The commit history</h2>
+<p><code>git log</code> will show you your commit history. Your commit history is basically a list of all your commits annotated with metadata. One of the <code>git log</code> metadata are the commit hashes which you will need to search for/ go back to older versions or creating new branches (which we will learn in a sec). To see your commit history, simply type <code>git log</code>. Here's an example and explanation of what we see:</p>
+<div class="highlight"><pre><span></span><code>commit 211a87947765cb34fe922bb39eed8e2357ea5ae9 (HEAD -&gt; main)
+Author: julia-pfarr &lt;pfarr@staff.uni-marburg.de&gt;
+Date:   Thu Feb 8 18:57:23 2024 +0100
+
+    change Git intro
+</code></pre></div>
+<ul>
+<li>The first line is the commit hash. That's a unique identifier for this commit</li>
+<li>The next two lines are author and date. If you start working collaboratively on a project, you will also see entries from your collaborators</li>
+<li>the next line is the title you gave your commit. If you put in a longer commit message, you would also see this longer commit message.</li>
+<li><code>(HEAD -&gt; main)</code>: <code>HEAD</code> is a symbolic reference pointing to wherever you are in your commit history. When you move in your commit history, <code>HEAD</code> moves with you, like a shadow. In our example, <code>HEAD</code> is with the latest commit and is <em>pointing</em> to <code>main</code>. This means we are on the latest commit that was made on the <em>branch</em> <code>main</code>. We will learn in the next section why having the <code>HEAD</code> reference is very useful. </li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">git log</p>
+<ul>
+<li>to exit <code>git log</code>, press <code>q</code></li>
+<li>
+<p>to only show a concentrated version of the commit history, type <code>git log --oneline</code>. It will only have the last 7 digits of the commit hash (which is all you need), the title of the commit, and the <code>HEAD</code> and <code>main</code>info, like this:</p>
+<div class="highlight"><pre><span></span><code>211a879 (HEAD -&gt; main) change Git intro
+c3c16d6 finish intro
+e4a1e75 add online experiment section to psychopy
+8644c34 add graphics to PsychoPy dir for testing
+7506aa6 delete Remote WSL extension
+541c70c reset
+0ec1af7 fix image path in psychopy intro
+</code></pre></div>
+</li>
+</ul>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Task 2</p>
+<p>Do a <code>git diff</code> between your second commit and your second to last commit.</p>
+<details class="tip">
+<summary>Answer</summary>
+<ul>
+<li><code>git log --oneline</code> to find the commit hashes assigned to the respective commits</li>
+<li><code>git diff HASH_OLDER_COMMIT HASH_NEWER_COMMIT</code></li>
+</ul>
+</details>
+</div>
+<p>Here`s an overview on what we did so far<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>:</p>
+<p><img alt="overview" src="../_media/local_workflow_overview.png" /></p>
+<h3 id="git-and-binary-files">Git and binary files</h3>
+<p>Git is not good at handling binary files. You can still track them using git by adding and comitting them but git can't do a <code>git diff</code> of binary files. The reason is that git actually <em>reads</em> the files, thus it needs file formats that are text based (like usual code file types such as .py, .m, .R, or text files like .txt, .md, or tables in .csv, .tsv). File types like .docx, .xlsx, .pdf or images like .png, jpeg and so on are binary files which means the content of the files is actually stored in 0s and 1s. Therefore, <code>git diff</code> is not really working. There are some options how you can still diff binary files with git (see <a href="https://www.atlassian.com/git/tutorials/saving-changes/git-diff">this entry</a> "diffing binary files") but it is just easier not to. </p>
+<p>If you have a lot of binary files and large files in your project you might want to think about excluding those files from the diff operations of git and also checking them into Git LFS instead. Because git checks all files every time and needs to come to the conclusion every time that this particular files is binary. Sometimes this can go wrong and git could possibly destroy your binary file. To avoid this you can create a <code>.gitattributes</code> files (the <code>.</code> before the file name is important!!) and tell git to track those files with Git LFS instead. </p>
+<div class="admonition question">
+<p class="admonition-title">Task 3</p>
+<p>Create a <code>.gitattributes</code> files on the first level in your project folder:</p>
+<p>1) make new file <code>.gitattributes</code>.<br>
+2) put the following content:</p>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="err">```</span>
+<span class="w">    </span><span class="c1"># Source files</span>
+<span class="w">    </span><span class="c1"># ============</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">pxd</span><span class="w">    </span><span class="n">text</span><span class="w"> </span><span class="n">diff</span><span class="o">=</span><span class="n">python</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">py</span><span class="w">     </span><span class="n">text</span><span class="w"> </span><span class="n">diff</span><span class="o">=</span><span class="n">python</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">py3</span><span class="w">    </span><span class="n">text</span><span class="w"> </span><span class="n">diff</span><span class="o">=</span><span class="n">python</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">pyw</span><span class="w">    </span><span class="n">text</span><span class="w"> </span><span class="n">diff</span><span class="o">=</span><span class="n">python</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">pyx</span><span class="w">    </span><span class="n">text</span><span class="w"> </span><span class="n">diff</span><span class="o">=</span><span class="n">python</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">pyz</span><span class="w">    </span><span class="n">text</span><span class="w"> </span><span class="n">diff</span><span class="o">=</span><span class="n">python</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">pyi</span><span class="w">    </span><span class="n">text</span><span class="w"> </span><span class="n">diff</span><span class="o">=</span><span class="n">python</span>
+
+<span class="w">    </span><span class="c1"># Binary files</span>
+<span class="w">    </span><span class="c1"># ============</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">db</span><span class="w">     </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">p</span><span class="w">      </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">pkl</span><span class="w">    </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">pickle</span><span class="w"> </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">pyc</span><span class="w">    </span><span class="n">binary</span><span class="w"> </span><span class="k">export</span><span class="o">-</span><span class="n">ignore</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">pyo</span><span class="w">    </span><span class="n">binary</span><span class="w"> </span><span class="k">export</span><span class="o">-</span><span class="n">ignore</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">pyd</span><span class="w">    </span><span class="n">binary</span>
+
+<span class="w">    </span><span class="c1"># Jupyter notebook</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">ipynb</span><span class="w">  </span><span class="n">text</span><span class="w"> </span><span class="n">eol</span><span class="o">=</span><span class="n">lf</span>
+
+<span class="w">    </span><span class="c1"># Graphics: when git-lfs activated, exchange &#39;binary&#39; with: filter=lfs diff=lfs merge=lfs -text</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">png</span><span class="w">      </span><span class="n">binary</span><span class="w"> </span>
+<span class="w">    </span><span class="o">*.</span><span class="n">jpg</span><span class="w">      </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">jpeg</span><span class="w">     </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">gif</span><span class="w">      </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">tif</span><span class="w">      </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">tiff</span><span class="w">     </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">ico</span><span class="w">      </span><span class="n">binary</span>
+<span class="w">    </span><span class="c1"># SVG treated as text by default.</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">svg</span><span class="w">      </span><span class="n">text</span>
+<span class="w">    </span><span class="c1"># If you want to treat it as binary,</span>
+<span class="w">    </span><span class="c1"># use the following line instead.</span>
+<span class="w">    </span><span class="c1"># *.svg    binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">eps</span><span class="w">      </span><span class="n">binary</span>
+
+<span class="w">    </span><span class="c1"># Documents</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">bibtex</span><span class="w">   </span><span class="n">text</span><span class="w"> </span><span class="n">diff</span><span class="o">=</span><span class="n">bibtex</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">doc</span><span class="w">      </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">DOC</span><span class="w">      </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">docx</span><span class="w">     </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">DOCX</span><span class="w">     </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">dot</span><span class="w">      </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">DOT</span><span class="w">      </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">pdf</span><span class="w">      </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">PDF</span><span class="w">      </span><span class="n">binary</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">rtf</span><span class="w">      </span><span class="n">diff</span><span class="o">=</span><span class="n">astextplain</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">RTF</span><span class="w">      </span><span class="n">diff</span><span class="o">=</span><span class="n">astextplain</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">md</span><span class="w">       </span><span class="n">text</span><span class="w"> </span><span class="n">diff</span><span class="o">=</span><span class="n">markdown</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">mdx</span><span class="w">      </span><span class="n">text</span><span class="w"> </span><span class="n">diff</span><span class="o">=</span><span class="n">markdown</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">tex</span><span class="w">      </span><span class="n">text</span><span class="w"> </span><span class="n">diff</span><span class="o">=</span><span class="n">tex</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">adoc</span><span class="w">     </span><span class="n">text</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">textile</span><span class="w">  </span><span class="n">text</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">mustache</span><span class="w"> </span><span class="n">text</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">csv</span><span class="w">      </span><span class="n">text</span><span class="w"> </span><span class="n">eol</span><span class="o">=</span><span class="n">crlf</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">tab</span><span class="w">      </span><span class="n">text</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">tsv</span><span class="w">      </span><span class="n">text</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">txt</span><span class="w">      </span><span class="n">text</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">sql</span><span class="w">      </span><span class="n">text</span>
+<span class="w">    </span><span class="o">*.</span><span class="n">epub</span><span class="w">     </span><span class="n">diff</span><span class="o">=</span><span class="n">astextplain</span>
+</code></pre></div>
+
+</div>
+<div class="admonition tip">
+<p class="admonition-title">.gitignore</p>
+<p>Another config file of git is <code>.gitignore</code>. In this file you can state if you want certain files or whole directories excluded from being tracked by git. Sure, you could also just not add them. But then you will always get the message of <em>untracked files</em> and that might annoy or confuse you with time. So, instead you can just list those files or directories in a <code>.gitignore</code> file. </p>
+<p>For example, Mac Users should set the <code>.DS_Store</code> files to be ignored. You can either do that globally (<code>echo .DS_Store &gt;&gt; ~/.gitignore_global</code>, then <code>git config --global core.excludesfile ~/.gitignore_global</code>), or in a <code>.gitignore</code> file. The <code>.gitignore</code> file has the same structure as the <code>.gitattributes</code> file. Templates can be found <a href="https://github.com/github/gitignore">here</a>.</p>
+</div>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Example and description retrieved from <a href="https://www.atlassian.com/git/tutorials/saving-changes/git-diff">Atlassian Git Tutorial</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Image by Peer Herholz&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://choosealicense.com/licenses/mit/">License</a> &copy; 2024 Julia-Katharina Pfarr<br>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/julia-pfarr" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/julia-katharina-pfarr-2a6437236/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.researchgate.net/profile/Julia-Katharina-Pfarr" target="_blank" rel="noopener" title="www.researchgate.net" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M0 32v448h448V32H0zm262.2 334.4c-6.6 3-33.2 6-50-14.2-9.2-10.6-25.3-33.3-42.2-63.6-8.9 0-14.7 0-21.4-.6v46.4c0 23.5 6 21.2 25.8 23.9v8.1c-6.9-.3-23.1-.8-35.6-.8-13.1 0-26.1.6-33.6.8v-8.1c15.5-2.9 22-1.3 22-23.9V225c0-22.6-6.4-21-22-23.9V193c25.8 1 53.1-.6 70.9-.6 31.7 0 55.9 14.4 55.9 45.6 0 21.1-16.7 42.2-39.2 47.5 13.6 24.2 30 45.6 42.2 58.9 7.2 7.8 17.2 14.7 27.2 14.7v7.3zm22.9-135c-23.3 0-32.2-15.7-32.2-32.2V167c0-12.2 8.8-30.4 34-30.4s30.4 17.9 30.4 17.9l-10.7 7.2s-5.5-12.5-19.7-12.5c-7.9 0-19.7 7.3-19.7 19.7v26.8c0 13.4 6.6 23.3 17.9 23.3 14.1 0 21.5-10.9 21.5-26.8h-17.9v-10.7h30.4c0 20.5 4.7 49.9-34 49.9zm-116.5 44.7c-9.4 0-13.6-.3-20-.8v-69.7c6.4-.6 15-.6 22.5-.6 23.3 0 37.2 12.2 37.2 34.5 0 21.9-15 36.6-39.7 36.6z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:juliakatharina.pfarr@gmail.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "navigation.sections", "navigation.expand", "content.tabs.link", "toc.integrate", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dd8806f2.min.js"></script>
+      
+    
+  </body>
+</html>
