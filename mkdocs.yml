@@ -1,7 +1,7 @@
 site_name: Git & GitLab Tutorial
 copyright: <a href="https://choosealicense.com/licenses/mit/">License</a>
   &copy; 2024 Julia-Katharina Pfarr<br>
-#repo_url: https://github.com/julia-pfarr/rdm_workshop
+repo_url: https://github.com/julia-pfarr/git-gitlab_tutorial
 theme:                  
     name: material
     palette:
