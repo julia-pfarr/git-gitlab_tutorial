@@ -1,6 +1,6 @@
 # Tutorial Objectives
 
-This tutorial is made for researchers in psychology or neurosciences with little to no background in software development or other high computational expertise.
+This tutorial is made for researchers in psychology or neurosciences with little to no background in software development or no other computational expertise.
 
 ## Topics 💡
 
