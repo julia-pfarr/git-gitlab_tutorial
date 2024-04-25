@@ -1,0 +1,69 @@
+site_name: Git & GitLab Tutorial
+copyright: <a href="https://choosealicense.com/licenses/mit/">License</a>
+  &copy; 2024 Julia-Katharina Pfarr<br>
+#repo_url: https://github.com/julia-pfarr/rdm_workshop
+theme:                  
+    name: material
+    palette:
+      primary: blue grey
+    font:
+      text: Montserrat
+      code: Roboto mono
+    language: en
+    features:   
+    - navigation.top            
+    - navigation.sections       
+    - navigation.expand        
+    - content.tabs.link  
+    - toc.integrate  
+    - content.code.copy
+
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/julia-pfarr
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/julia-katharina-pfarr-2a6437236/
+    - icon: fontawesome/brands/researchgate
+      link: https://www.researchgate.net/profile/Julia-Katharina-Pfarr
+    - icon: material/email
+      link: mailto:juliakatharina.pfarr@gmail.com 
+
+docs_dir: docs 
+nav:
+  - Overview: index.md
+  - Installation and Setup: setup.md
+  - Introduction: introduction.md
+  - Basic Git Workflow: basics.md
+  - Branching and Merging: branching_merging.md
+  - Basic Git-GitLab Workflow: gitlab.md
+  - Merge requests: contribute.md
+
+markdown_extensions:
+  - admonition
+  - abbr
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - md_in_html
+  - codehilite
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.tabbed
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.smartsymbols
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji 
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
