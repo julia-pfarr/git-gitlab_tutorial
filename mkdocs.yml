@@ -39,7 +39,7 @@ nav:
   - Basic Git Workflow: basics.md
   - Branching and Merging: branching_merging.md
   - Basic Git-GitLab Workflow: gitlab.md
-  - Merge requests: contribute.md
+  - Merge requests and more: contribute.md
 
 markdown_extensions:
   - admonition

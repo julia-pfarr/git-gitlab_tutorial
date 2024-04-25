@@ -52,15 +52,15 @@ Git LFS does this by replacing large files in your repository with tiny pointer 
 
 1. When you add a file to your repository, Git LFS replaces its contents with a pointer, and stores the file contents in a local Git LFS cache. 
 
-![git lfs concept](../images/git_lfs_add.png)
+![git lfs concept](_media/git_lfs_add.png)
 
 2. When you push new commits to the server, any Git LFS files referenced by the newly pushed commits are transferred from your local Git LFS cache to the remote Git LFS store tied to your Git repository. 
 
-![git lfs push](../images/git_lfs_push.png)
+![git lfs push](_media/git_lfs_push.png)
 
 When you checkout a commit that contains Git LFS pointers, they are replaced with files from your local Git LFS cache, or downloaded from the remote Git LFS store.
 
-![git lfs checkout](../images/git_lfs_checkout.png)
+![git lfs checkout](_media/git_lfs_checkout.png)
 
 Git LFS is seamless: in your working copy you'll only see your actual file content. This means you can use Git LFS without changing your existing Git workflow; you simply git checkout, edit, git add, and git commit as normal. git clone and git pull operations will be significantly faster as you only download the versions of large files referenced by commits that you actually check out, rather than every version of the file that ever existed.
 
