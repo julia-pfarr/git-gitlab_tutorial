@@ -1,5 +1,3 @@
-# Workshop on Research Data Management
+# Git & GitLab Tutorial
 
-This repo contains the content for a *generic* research data management workshop which was first held in the graduate center of the University of Gießen on January 27th 2024. Attendees come from different fields of research (natural sciences). 
-
-The workshop content is rendered on this [website](https://julia-pfarr.github.io/rdm_workshop/) and available in presentation mode in these [Google Slides](https://docs.google.com/presentation/d/13-mmwksZDUksGK9rskYnzL-ybIPhhMlaAmF11ZmrYRw/edit?usp=sharing).
+This tutorial teaches you the basics in Git and GitLab and is made for researchers in psychology or neurosciences with little to no background in software development or other high computational expertise. The repo is rendered on [this website](). 
