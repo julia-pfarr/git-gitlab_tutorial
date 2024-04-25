@@ -246,7 +246,7 @@ Git is not good at handling binary files. You can still track them using git by 
 
 If you have a lot of binary files and large files in your project you might want to think about excluding those files from the diff operations of git and also checking them into Git LFS instead. Because git checks all files every time and needs to come to the conclusion every time that this particular files is binary. Sometimes this can go wrong and git could possibly destroy your binary file. To avoid this you can create a `.gitattributes` files (the `.` before the file name is important!!) and tell git to track those files with Git LFS instead. 
 
-!!! question "Task 3a"
+!!! question "Task 3"
 
     Create a `.gitattributes` files on the first level in your project folder:
 
@@ -316,17 +316,6 @@ If you have a lot of binary files and large files in your project you might want
             *.txt      text
             *.sql      text
             *.epub     diff=astextplain
-
-!!! question "Task 3b"
-
-    1) Check that you actually installed Git LFS: `git lfs --version`.<br>
-    2) Git LFS has to be initialized once for your user. If you didn't do so while going through the [Installation and Setup](../_landing.md) section, please do so now: `git lfs install`. This also applies to first usage on MaRC3 / JupyterHub. <br>
-    3) For your project, you can now define which files shall be handled by Git LFS by typing the following in the terminal while being in the project folder (examples, please modify according to your project and your files): 
-
-    - files: `git lfs track "07_disseminations/myManuscript.pdf"`
-    - directories: `git lfs track "03_data/001_myExperiment/*"` 
-    - file types: `git lfs track "*.pdf" "*.png"`
-    4) watch the in the above `.gitattributes` file given note regarding the `filter=lfs diff=lfs merge=lfs -text` configuration in the `.gitattributes` file when git-lfs is activated. Change it. 
 
 !!! tip ".gitignore"
 

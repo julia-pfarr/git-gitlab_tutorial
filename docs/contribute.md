@@ -41,6 +41,53 @@ You can also do automated testing of your code (`continuous integration`/`CI`), 
 
 It allows you to do a bunch of other stuff which is related to project analytics which is mostly used in industry and exceeds the goals of a science project in academia.
 
+## Extra: Git LFS
+
+ *Note: Text and images retrieved from [atlassian.com](https://www.atlassian.com/git/tutorials/git-lfs)*
+
+
+Git is a distributed version control system, meaning the entire history of the repository is transferred to the client during the cloning process. For projects containing large files, particularly large files that are modified regularly, this initial clone can take a huge amount of time, as every version of every file has to be downloaded by the client. Git LFS (Large File Storage) is a Git extension developed by Atlassian, GitHub, and a few other open source contributors, that reduces the impact of large files in your repository by downloading the relevant versions of them lazily. Specifically, large files are downloaded during the checkout process rather than during cloning or fetching.
+
+Git LFS does this by replacing large files in your repository with tiny pointer files. During normal usage, you'll never see these pointer files as they are handled automatically by Git LFS:
+
+1. When you add a file to your repository, Git LFS replaces its contents with a pointer, and stores the file contents in a local Git LFS cache. 
+
+![git lfs concept](../images/git_lfs_add.png)
+
+2. When you push new commits to the server, any Git LFS files referenced by the newly pushed commits are transferred from your local Git LFS cache to the remote Git LFS store tied to your Git repository. 
+
+![git lfs push](../images/git_lfs_push.png)
+
+When you checkout a commit that contains Git LFS pointers, they are replaced with files from your local Git LFS cache, or downloaded from the remote Git LFS store.
+
+![git lfs checkout](../images/git_lfs_checkout.png)
+
+Git LFS is seamless: in your working copy you'll only see your actual file content. This means you can use Git LFS without changing your existing Git workflow; you simply git checkout, edit, git add, and git commit as normal. git clone and git pull operations will be significantly faster as you only download the versions of large files referenced by commits that you actually check out, rather than every version of the file that ever existed.
+
+1. Download [git-lfs](https://git-lfs.com/)
+2. Check installation: `git lfs --version`
+3. Initialize git-lfs once for your username: `git lfs install`
+
+If you do a cat ~/.gitconfig, you should see the following added to your git configuration:
+
+
+    [filter "lfs"]
+        smudge = git-lfs smudge -- %f
+        process = git-lfs filter-process
+        required = true
+        clean = git-lfs clean -- %f
+
+4. On your GitLab repo: got to Settings -> General -> Visibility, project features, permissions -> Enable Git LFS
+5. check your `.gitattributes` file. For everything you want to use git-lfs, give it the git-lfs attribute, like so:
+
+```
+# Graphics: 
+    *.png      filter=lfs diff=lfs merge=lfs -text
+    *.jpg      filter=lfs diff=lfs merge=lfs -text
+    *.jpeg     filter=lfs diff=lfs merge=lfs -text
+``` 
+
+
 ## THE END
 
 ## optional/reading/further materials
